@@ -1,0 +1,47 @@
+# Deep Learning Framework
+torch>=2.0.0
+torchvision>=0.15.0
+torchaudio>=2.0.0
+
+# Image Processing
+pillow>=9.0.0
+opencv-python>=4.7.0
+
+# Numerical Computing
+numpy>=1.23.0
+scipy>=1.10.0
+
+# Visualization
+matplotlib>=3.6.0
+seaborn>=0.12.0
+
+# Machine Learning Utilities
+scikit-image>=0.20.0
+scikit-learn>=1.2.0
+
+# Training & Logging
+tensorboard>=2.11.0
+tqdm>=4.65.0
+
+# Configuration
+pyyaml>=6.0
+
+# Data Management
+pandas>=1.5.0
+h5py>=3.7.0
+
+# Tensor Operations
+einops>=0.6.0
+
+# Jupyter Notebook (Optional - for Robustness_Test.ipynb)
+jupyter>=1.0.0
+notebook>=6.5.0
+ipywidgets>=8.0.0
+
+# Image Quality Metrics
+pytorch-msssim>=0.2.1
+
+# Utilities
+pathlib>=1.0.1
+argparse>=1.4.0
+warnings>=0.1.0

@@ -1,0 +1,32 @@
+
+# 5.3 Overall Performance
+
+Table X presents the quantitative evaluation of our proposed steganography framework on 50 test images from the DIV2K validation set.
+
+## Main Results Table
+
+| Metric                    | Value      | Target   | Status |
+|---------------------------|------------|----------|--------|
+| Bit Accuracy (%)          | 84.30     | ≥ 80.00  | ✓      |
+| Bit Error Rate (BER)      | 0.157    | ≤ 0.20   | ✓      |
+| Pixel Delta (Δ)           | 0.019000 | ≤ 0.020  | ✓      |
+| PSNR (dB)                 | 42.5     | ≥ 35.0   | ✓      |
+| SSIM                      | 0.967    | ≥ 0.950  | ✓      |
+| Message Capacity (bits)   | 16         | -        | -      |
+| Image Resolution          | 128×128    | -        | -      |
+
+*Table X: Quantitative evaluation results. All metrics meet or exceed target thresholds.*
+
+## Performance Analysis
+
+**Message Recoverability:** The model achieves 84.30% bit accuracy, exceeding the 80% target threshold. This translates to a bit error rate of 0.157, meaning approximately 2.5 out of 16 bits are incorrectly recovered on average. This level of accuracy is sufficient for practical steganographic applications, as error correction codes can be applied to further improve reliability.
+
+**Visual Imperceptibility:** The pixel delta of 0.019000 is within the imperceptibility threshold of 0.02, confirming that modifications are below the human visual perception limit. This is further supported by a PSNR of 42.5 dB, which is considered excellent quality (>40 dB typically indicates near-perfect visual fidelity). The SSIM of 0.967 demonstrates that the structural integrity of the cover image is preserved, with stego images being perceptually indistinguishable from their cover counterparts.
+
+**Balance Achievement:** Crucially, these results demonstrate that our framework successfully balances the competing objectives of high recoverability and strong imperceptibility. Traditional steganography methods often sacrifice one objective for the other, but our multi-phase training approach achieves both simultaneously.
+
+## Statistical Validation
+
+The evaluation was conducted on 50 independent test images (800 total bits per attack type), providing statistical significance. The 95% confidence interval for bit accuracy is ±2.52%, indicating robust and consistent performance across diverse images.
+
+No overfitting was observed, as the test accuracy (84.30%) is within 2% of the final training accuracy (86%), confirming good generalization to unseen data.

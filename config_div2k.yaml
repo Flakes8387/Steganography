@@ -1,0 +1,77 @@
+# DIV2K Dataset Training Configuration
+# Optimized for DIV2K high-resolution images with patch-based loading
+
+# Model Configuration
+model:
+  image_size: 128          # Patch size (128x128 crops from 2K images)
+  message_length: 16       # Number of bits to hide (16 bits = 2 bytes)
+
+# Training Parameters
+training:
+  batch_size: 8            # Batch size (can be higher with 128x128 patches)
+  learning_rate: 0.0001    # 1e-4 learning rate
+  max_epochs: 100          # Maximum number of training epochs
+  weight_decay: 0.0001     # L2 regularization
+  
+# Data Loading - DIV2K Specific
+data:
+  num_workers: 8           # Number of data loading threads
+  train_dir: "data/DIV2K/train"  # DIV2K training directory
+  val_dir: null            # Validation directory (optional)
+  dataset_type: "DIV2K"    # Explicit DIV2K dataset type
+  
+  # Dataset Size Limits (optimized for RTX 3050 6GB)
+  # For local GPU: Use 500-800 base images to keep training time reasonable
+  # NOTE: max_train_images limits BASE images, total patches = base × patches_per_image
+  max_train_images: 500    # 500 base images (500 × 4 = 2000 training samples)
+  max_val_images: 100      # 100 validation images
+  
+  # Patch-based loading - Randomly sampled each epoch for diversity
+  use_patches: true        # Extract multiple patches from each high-res image
+  patches_per_image: 4     # 4 random 128x128 crops per image
+  random_crop: true        # Random crops ensure different patches each epoch
+
+# Distortions and Attacks
+# NOTE: Distortions disabled initially, auto-enable at 75% bit accuracy
+distortions:
+  enable: false            # OFF initially - clean training until 75% accuracy
+  jpeg_compression: false  # Will enable JPEG at 75% (0.1 probability)
+  gaussian_noise: false    # Keep disabled for local GPU
+  resize_attack: false     # Keep disabled for local GPU
+  blur_attack: false       # Keep disabled
+  color_jitter: false      # Keep disabled
+
+# Optimization
+optimizer:
+  type: "adam"             # Optimizer type
+  beta1: 0.9               # Adam beta1
+  beta2: 0.999             # Adam beta2
+  eps: 1e-8                # Adam epsilon
+
+# Learning Rate Scheduler
+scheduler:
+  type: "plateau"          # Type: plateau, step, cosine
+  factor: 0.5              # Reduce factor
+  patience: 5              # Epochs to wait before reducing
+  min_lr: 1e-6             # Minimum learning rate
+
+# Checkpointing
+checkpoint:
+  save_freq: 5             # Save every 5 epochs
+  checkpoint_dir: "checkpoints"
+  
+# Logging
+logging:
+  log_dir: "runs"          # TensorBoard logs directory
+  
+# Device Configuration
+device:
+  seed: 42                 # Random seed for reproducibility
+
+# Sanity Check Configuration
+sanity:
+  enabled: true            # Run sanity check before training
+  num_images: 50           # Number of images for sanity check
+  min_epochs: 300          # Minimum epochs for sanity check
+  max_epochs: 500          # Maximum epochs for sanity check
+  target_accuracy: 0.95    # Target bit accuracy (95%)

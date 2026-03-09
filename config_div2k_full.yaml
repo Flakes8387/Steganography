@@ -1,0 +1,76 @@
+# DIV2K Configuration for Maximum Quality (RTX 3050 6GB)
+# Training time: ~4-5 hours
+# Use for: Best possible results with full dataset
+
+# Model Architecture
+model:
+  image_size: 128          # Patch size (128x128 pixels)
+  message_length: 32       # REQUIRED: 16 or 32 bits only (64 not allowed)
+
+# Training
+training:
+  num_epochs: 150          # More epochs for best convergence
+  batch_size: 4            # REQUIRED: Batch size must be 4 for DIV2K
+  learning_rate: 0.001
+  save_freq: 10            # Save checkpoints every 10 epochs
+  
+  # Early stopping (patient for best quality)
+  early_stopping_patience: 30  # More patience for optimal results
+  early_stopping_metric: 'bit_accuracy'
+  early_stopping_min_delta: 0.0005  # Stricter improvement threshold
+  
+  # Loss weights
+  message_loss_weight: 5.0
+  
+  # Gradient clipping
+  gradient_clip: 1.0
+
+# GPU Optimizations
+gpu:
+  device: "cuda"
+  cudnn_benchmark: true
+  mixed_precision: true    # AMP for faster training
+
+# Data Loading - FULL DATASET for maximum quality
+data:
+  num_workers: 8
+  train_dir: "data/DIV2K/train"
+  val_dir: null
+  dataset_type: "DIV2K"    # Explicit DIV2K dataset type
+  
+  # FULL DATASET: Use all 800 DIV2K images
+  # Total samples: 800 images × 4 patches = 3200 training samples
+  max_train_images: 800    # Full dataset for best quality
+  max_val_images: 200
+  
+  # Patch-based loading - Randomly sampled each epoch
+  use_patches: true
+  patches_per_image: 4     # 4 random crops per image
+  random_crop: true        # Maximum diversity
+
+# Distortions - JPEG-only robust training
+distortions:
+  # Phase 1: Clean training (until 75% bit accuracy)
+  resize: 
+    enabled: false
+    probability: 0.0
+  
+  noise:
+    enabled: false
+    probability: 0.0
+  
+  jpeg:
+    enabled: true
+    probability: 0.0       # Starts at 0.0, enabled at 75% bit accuracy
+    quality_min: 50
+    quality_max: 95
+    
+  # Two-phase training threshold
+  jpeg_only_threshold: 0.75  # Enable JPEG at 75% bit accuracy
+  jpeg_only_probability: 0.1 # 10% chance when enabled
+
+# Logging
+logging:
+  tensorboard: true
+  print_freq: 10
+  plot_freq: 5             # Generate plots every 5 epochs

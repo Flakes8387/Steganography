@@ -1,0 +1,103 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# Model Checkpoints and Training Artifacts
+checkpoints/
+*.pt
+*.pth
+*.ckpt
+*.pkl
+test_message.pt
+decoded_message.pt
+
+# Training Logs
+runs/
+logs/
+tensorboard/
+*.log
+
+# Dataset Directories (large files)
+data/
+dataset/
+datasets/
+DIV2K/
+COCO/
+ImageNet/
+
+# Output and Test Files
+output/
+outputs/
+test_output/
+results/
+*.png
+*.jpg
+*.jpeg
+!example_*.png
+!example_*.jpg
+
+# Temporary Files
+temp/
+tmp/
+*.tmp
+temp_*.yaml
+*_backup.*
+*.bak
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Distribution / Compilation
+.dist/
+*.dll
+*.exe
+*.o
+*.a
+
+# Environment Variables (if any in future)
+.env
+.env.local
+*.secret
+
+# Coverage
+.coverage
+htmlcov/
+.pytest_cache/

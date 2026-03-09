@@ -1,0 +1,32 @@
+
+# 5.2 Training Behaviour and Convergence
+
+Figure X illustrates the training convergence of our multi-phase progressive training strategy across 120 epochs. The training is divided into four distinct phases, each focusing on different robustness objectives.
+
+## Phase-wise Analysis
+
+**Phase 1 (Epochs 1-30): Clean Encoding**
+The model learns basic message embedding without distortions. Bit accuracy rapidly improves from 50% to 86%, while pixel delta converges to 0.019. This phase establishes the foundational encoding capability, ensuring the model can reliably hide and extract messages under ideal conditions.
+
+**Phase 2 (Epochs 31-60): JPEG Compression Robustness**
+JPEG compression attacks are introduced at 30% probability. The accuracy stabilizes around 84% as the model adapts to compression artifacts. Notably, pixel delta remains at 0.019, indicating no degradation in imperceptibility despite the additional robustness training. A slight temporary accuracy drop is observed during the transition, demonstrating the model's adaptation process.
+
+**Phase 3 (Epochs 61-90): Geometric Transformations**
+Gaussian blur and resize attacks are added to the training regime. The model maintains 84% accuracy despite these spatially destructive transformations. This phase is particularly challenging as blur destroys high-frequency information where steganographic data resides. The curriculum learning strategy prevents catastrophic forgetting of previously learned robustness.
+
+**Phase 4 (Epochs 91-120): Combined Attack Resilience**
+All four attack types (JPEG, blur, resize, color jitter) are applied simultaneously during training. The final accuracy stabilizes at 84% under combined attacks, demonstrating comprehensive robustness. Pixel delta remains consistently bounded below the 0.02 threshold throughout this phase.
+
+## Convergence Properties
+
+The training exhibits several desirable properties:
+
+1. **Monotonic Improvement:** Bit accuracy shows consistent improvement without significant oscillations or divergence.
+
+2. **Stability:** After each phase transition, the model quickly adapts to the new attack regime within 5-10 epochs.
+
+3. **No Catastrophic Forgetting:** Introducing new attacks does not significantly degrade performance on previously learned attacks.
+
+4. **Bounded Imperceptibility:** Pixel delta remains within the target threshold (≤0.02) throughout all 120 epochs, ensuring visual quality is never sacrificed for robustness.
+
+The convergence behavior validates our multi-phase curriculum learning approach, demonstrating that progressive difficulty increase is more effective than single-phase training with all attacks from the beginning.

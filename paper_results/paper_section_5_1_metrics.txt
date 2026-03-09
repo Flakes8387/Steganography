@@ -1,0 +1,40 @@
+
+# 5.1 Evaluation Metrics
+
+We evaluate the proposed steganography framework using multiple metrics that assess both message recoverability and visual imperceptibility.
+
+## Message Recovery Metrics
+
+**Bit Accuracy (BA):** The percentage of correctly recovered message bits after decoding.
+
+    BA = (Number of Correct Bits / Total Bits) × 100%
+
+**Bit Error Rate (BER):** The proportion of incorrectly decoded bits, defined as:
+
+    BER = (Number of Incorrect Bits / Total Bits) = 1 - (BA / 100)
+
+## Imperceptibility Metrics
+
+**Pixel Delta (Δ):** The mean absolute difference between cover and stego images, measuring the average perturbation per pixel:
+
+    Δ = (1/N) Σ|C(i,j) - S(i,j)|
+
+where C represents the cover image, S represents the stego image, and N is the total number of pixels. Lower values indicate better imperceptibility.
+
+**Peak Signal-to-Noise Ratio (PSNR):** A logarithmic measure of image quality defined as:
+
+    PSNR = 20 · log₁₀(1 / √MSE)
+
+where MSE is the mean squared error between the cover and stego images. Higher PSNR values (typically > 35 dB) indicate better visual quality.
+
+**Structural Similarity Index (SSIM):** A perceptual quality metric that considers luminance, contrast, and structural similarities between images, ranging from 0 (completely different) to 1 (identical).
+
+## Performance Targets
+
+For robust steganography, we aim to achieve:
+- Bit Accuracy ≥ 80% (sufficient recoverability under attacks)
+- Pixel Delta ≤ 0.02 (imperceptible changes to human vision)
+- PSNR ≥ 35 dB (excellent visual quality)
+- SSIM ≥ 0.95 (near-identical perceptual structure)
+
+All evaluations are performed on 50 test images from the DIV2K validation set, providing 800 total bits per attack scenario for statistical significance.

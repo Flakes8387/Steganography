@@ -1,0 +1,91 @@
+# Training Configuration for Local GPU (RTX 3050 6GB)
+# Optimized for fast training with minimal memory usage
+
+# Model Configuration
+model:
+  image_size: 128          # Input image dimensions (128x128)
+  message_length: 16       # Number of bits to hide (16 bits = 2 bytes)
+
+# Training Parameters
+training:
+  batch_size: 4            # Small batch size for 6GB GPU
+  learning_rate: 0.001     # 1e-3 learning rate (STANDARD - 10x faster!)
+  max_epochs: 300          # Maximum number of training epochs
+  weight_decay: 0.0001     # L2 regularization
+  
+# Data Loading
+data:
+  num_workers: 8           # Number of data loading threads (8 for RTX 3050)
+  train_dir: "data/DIV2K/train"  # Training directory (default: DIV2K)
+  val_dir: null            # Validation directory (optional)
+  dataset_type: "auto"     # Dataset type: auto, DIV2K, coco, imagenet, flat
+  
+  # Dataset Size Limits (for reasonable local GPU training time)
+  # NOTE: max_train_images limits BASE images, not total patches
+  # Example: 500 images × 4 patches = 2000 training samples
+  max_train_images: 1000   # Limit base images (500-1000 recommended for local GPU)
+  max_val_images: 200      # Limit validation images
+  
+  # Patch-based loading (for high-resolution datasets like DIV2K)
+  # Patches are randomly sampled each epoch for maximum diversity
+  use_patches: false       # Enable to extract multiple patches per image
+  patches_per_image: 4     # Number of 128x128 patches per image (increases dataset 4x)
+  random_crop: true        # Use random crops (true) or center crop (false)
+
+# Distortions and Attacks
+# NOTE: Distortions are disabled by default for clean-image training
+# They will auto-enable when bit accuracy reaches >= 75%
+distortions:
+  enable: false            # OFF initially - clean training until 75% accuracy
+  jpeg_compression: false  # JPEG attack
+  gaussian_noise: false    # Gaussian noise attack
+  resize_attack: false     # Resize attack
+  blur_attack: false       # Gaussian blur
+  color_jitter: false      # Color jitter attack
+
+# Optimization
+optimizer:
+  type: "adam"             # Optimizer type (adam/sgd/adamw)
+  beta1: 0.9               # Adam beta1
+  beta2: 0.999             # Adam beta2
+  eps: 1e-8                # Adam epsilon
+
+# Learning Rate Scheduler
+scheduler:
+  type: "plateau"          # Type: plateau, step, cosine
+  factor: 0.5              # Reduce factor
+  patience: 5              # Epochs to wait before reducing
+  min_lr: 1e-6             # Minimum learning rate
+
+# Checkpointing
+checkpoint:
+  save_freq: 10            # Save checkpoint every N epochs
+  keep_last_n: 5           # Keep only last N checkpoints
+  checkpoint_dir: "checkpoints"
+  save_best: true          # Save best model based on validation
+
+# Logging
+logging:
+  log_dir: "runs"          # TensorBoard log directory
+  log_freq: 10             # Log metrics every N batches
+  print_freq: 10           # Print progress every N batches
+
+# Device
+device:
+  cuda: true               # Use CUDA if available
+  gpu_id: 0                # GPU device ID
+  seed: 42                 # Random seed for reproducibility
+
+# Sanity Mode (Pre-training verification)
+sanity:
+  enabled: true            # Run automatic sanity check before training
+  images: 50               # Number of images for sanity check
+  epochs: 300              # Minimum epochs (max 500)
+  target_accuracy: 0.95    # Target bit accuracy (95%)
+
+# Loss Weights
+loss:
+  image_weight: 1.0        # Weight for image reconstruction loss
+  message_weight: 1.0      # Weight for message reconstruction loss
+  perceptual_weight: 0.0   # Weight for perceptual loss (0 = disabled)
+  ssim_weight: 0.0         # Weight for SSIM loss (0 = disabled)
