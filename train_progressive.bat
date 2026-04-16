@@ -1,4 +1,4 @@
-@echo off
+﻿@Flakes8387 off
 REM Quick Start Script for Progressive Training
 REM Windows Batch Script
 
@@ -99,3 +99,4 @@ echo To view training logs:
 echo   tensorboard --logdir runs
 echo.
 pause
+

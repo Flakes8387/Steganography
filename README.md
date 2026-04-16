@@ -1,35 +1,35 @@
-# Image Steganography Model
+﻿# Image Steganography Model
 
 ![steganography](https://user-images.githubusercontent.com/28294942/184524203-850eea1e-74fc-4539-a70f-8c65adcf96dc.png)
 
 A robust deep learning-based image steganography model using PyTorch. This project implements an end-to-end neural network approach for hiding and extracting secret messages in images, designed to be robust against real-world distortions like JPEG compression, noise, and image transformations.
 
-## 🌟 Overview
+## ðŸŒŸ Overview
 
 **Steganography** is the practice of concealing information within other non-secret data. Unlike traditional cryptography which obscures the content of messages, steganography hides the existence of the message itself.
 
 This project uses **deep learning** to automatically learn optimal encoding and decoding strategies, achieving:
 
-- 🔒 **High Security**: Stego images are visually indistinguishable from originals (>40 dB PSNR)
-- 🛡️ **Robustness**: Survives JPEG compression, noise, resizing, and other distortions
-- 📊 **High Capacity**: Hide 1024+ bits per 256×256 image
-- ⚡ **Fast Inference**: Real-time encoding and decoding on GPU
+- ðŸ”’ **High Security**: Stego images are visually indistinguishable from originals (>40 dB PSNR)
+- ðŸ›¡ï¸ **Robustness**: Survives JPEG compression, noise, resizing, and other distortions
+- ðŸ“Š **High Capacity**: Hide 1024+ bits per 256Ã—256 image
+- âš¡ **Fast Inference**: Real-time encoding and decoding on GPU
 
 ### Why Deep Learning?
 
 Traditional steganography methods (like LSB modification) are:
-- ❌ Fragile to compression and transformations
-- ❌ Detectable by statistical analysis
-- ❌ Fixed embedding strategies
+- âŒ Fragile to compression and transformations
+- âŒ Detectable by statistical analysis
+- âŒ Fixed embedding strategies
 
 Deep learning steganography is:
-- ✅ Robust to attacks through adversarial training
-- ✅ Learns imperceptible embedding automatically
-- ✅ Adapts to image content and distortions
+- âœ… Robust to attacks through adversarial training
+- âœ… Learns imperceptible embedding automatically
+- âœ… Adapts to image content and distortions
 
 ---
 
-## 🏗️ Architecture
+## ðŸ—ï¸ Architecture
 
 The system consists of three main components:
 
@@ -41,9 +41,9 @@ Hides secret messages into cover images using a U-Net style architecture with re
 - Output: Stego image (3 channels, visually identical to cover)
 
 ```
-Cover Image (3, 256, 256) ──┐
-                             ├─→ [U-Net Encoder] ─→ Stego Image (3, 256, 256)
-Message (1024 bits) ────────┘
+Cover Image (3, 256, 256) â”€â”€â”
+                             â”œâ”€â†’ [U-Net Encoder] â”€â†’ Stego Image (3, 256, 256)
+Message (1024 bits) â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 2. **Decoder Network**
@@ -54,7 +54,7 @@ Extracts hidden messages from stego images (possibly distorted):
 - Output: Decoded message (1024 bits)
 
 ```
-Stego Image (3, 256, 256) ─→ [CNN Decoder] ─→ Message Logits (1024)
+Stego Image (3, 256, 256) â”€â†’ [CNN Decoder] â”€â†’ Message Logits (1024)
 ```
 
 ### 3. **Distortion Layer (Training Only)**
@@ -67,44 +67,44 @@ Simulates real-world attacks during training for robustness:
 
 ---
 
-## 📁 Project Structure
+## ðŸ“ Project Structure
 
 ```
 Final-year-Project-steganography/
-├── models/
-│   ├── encoder.py          # Encoder network architecture
-│   ├── decoder.py          # Decoder network architecture
-│   └── model.py            # StegoModel (combines encoder + decoder)
-├── attacks/
-│   ├── jpeg.py             # JPEG compression simulation
-│   ├── noise.py            # Various noise types
-│   ├── resize.py           # Resize attacks
-│   ├── blur.py             # Blur operations
-│   ├── crop.py             # Cropping attacks
-│   └── color_jitter.py     # Color transformations
-├── defense/
-│   ├── antialias.py        # Anti-aliasing filters
-│   ├── denoise.py          # Denoising modules
-│   └── adversarial.py      # Adversarial training
-├── evaluation/
-│   ├── ber.py              # Bit Error Rate metric
-│   ├── psnr.py             # Peak Signal-to-Noise Ratio
-│   ├── ssim.py             # Structural Similarity Index
-│   └── steganalysis.py     # CNN-based detection
-├── utils/
-│   └── dataset.py          # Dataset loading utilities
-├── losses.py               # Loss functions (image + message + perceptual)
-├── train.py                # Training script
-├── encode.py               # Encode messages into images
-├── decode.py               # Extract messages from images
-├── inference.py            # Batch inference utilities
-├── Robustness_Test.ipynb   # Interactive robustness testing
-└── README.md               # This file
+â”œâ”€â”€ models/
+â”‚   â”œâ”€â”€ encoder.py          # Encoder network architecture
+â”‚   â”œâ”€â”€ decoder.py          # Decoder network architecture
+â”‚   â””â”€â”€ model.py            # StegoModel (combines encoder + decoder)
+â”œâ”€â”€ attacks/
+â”‚   â”œâ”€â”€ jpeg.py             # JPEG compression simulation
+â”‚   â”œâ”€â”€ noise.py            # Various noise types
+â”‚   â”œâ”€â”€ resize.py           # Resize attacks
+â”‚   â”œâ”€â”€ blur.py             # Blur operations
+â”‚   â”œâ”€â”€ crop.py             # Cropping attacks
+â”‚   â””â”€â”€ color_jitter.py     # Color transformations
+â”œâ”€â”€ defense/
+â”‚   â”œâ”€â”€ antialias.py        # Anti-aliasing filters
+â”‚   â”œâ”€â”€ denoise.py          # Denoising modules
+â”‚   â””â”€â”€ adversarial.py      # Adversarial training
+â”œâ”€â”€ evaluation/
+â”‚   â”œâ”€â”€ ber.py              # Bit Error Rate metric
+â”‚   â”œâ”€â”€ psnr.py             # Peak Signal-to-Noise Ratio
+â”‚   â”œâ”€â”€ ssim.py             # Structural Similarity Index
+â”‚   â””â”€â”€ steganalysis.py     # CNN-based detection
+â”œâ”€â”€ utils/
+â”‚   â””â”€â”€ dataset.py          # Dataset loading utilities
+â”œâ”€â”€ losses.py               # Loss functions (image + message + perceptual)
+â”œâ”€â”€ train.py                # Training script
+â”œâ”€â”€ encode.py               # Encode messages into images
+â”œâ”€â”€ decode.py               # Extract messages from images
+â”œâ”€â”€ inference.py            # Batch inference utilities
+â”œâ”€â”€ Robustness_Test.ipynb   # Interactive robustness testing
+â””â”€â”€ README.md               # This file
 ```
 
 ---
 
-## 🚀 Getting Started
+## ðŸš€ Getting Started
 
 ### Prerequisites
 
@@ -148,7 +148,7 @@ See [CONFIG_GUIDE.md](CONFIG_GUIDE.md) for detailed configuration options.
 
 ---
 
-## 📊 Dataset Setup
+## ðŸ“Š Dataset Setup
 
 The system supports multiple dataset formats:
 
@@ -183,13 +183,13 @@ unzip train2017.zip -d data/
 
 The dataset loader will automatically:
 - Detect dataset structure
-- Resize images to 256×256
+- Resize images to 256Ã—256
 - Normalize to [0, 1] range
 - Generate random binary messages for training
 
 ---
 
-## 🎓 Training
+## ðŸŽ“ Training
 
 ### Using Configuration File (Recommended)
 
@@ -228,18 +228,18 @@ distortions:
 ```
 
 **Two-Phase Training (Automatic):**
-1. **Clean Training** (Phase 1): Trains on clean images until bit accuracy ≥75%
+1. **Clean Training** (Phase 1): Trains on clean images until bit accuracy â‰¥75%
 2. **Robust Training** (Phase 2): Auto-enables distortions for real-world robustness
 
 See [DISTORTION_TRAINING_GUIDE.md](DISTORTION_TRAINING_GUIDE.md) for details.
 
 **Benefits of config-based training:**
-- ✅ Reproducible experiments
-- ✅ Easy parameter management
-- ✅ Command-line overrides still work
-- ✅ GPU-optimized defaults
-- ✅ No need to remember long CLI commands
-- ✅ Automatic distortion scheduling
+- âœ… Reproducible experiments
+- âœ… Easy parameter management
+- âœ… Command-line overrides still work
+- âœ… GPU-optimized defaults
+- âœ… No need to remember long CLI commands
+- âœ… Automatic distortion scheduling
 
 ### Basic Training (Legacy CLI)
 
@@ -276,7 +276,7 @@ python train.py \
 | `--num_epochs` | 300 | Number of training epochs |
 | `--batch_size` | 4 | Batch size (safe for 6GB GPU) |
 | `--learning_rate` | 0.0001 | Learning rate |
-| `--image_size` | 128 | Image size (128×128) |
+| `--image_size` | 128 | Image size (128Ã—128) |
 | `--message_length` | 16 | Message length in bits |
 | `--enable_distortions` | False | Enable distortions during training |
 | `--apply_attacks` | False | Apply additional attacks |
@@ -296,7 +296,7 @@ Training typically takes:
 
 ---
 
-## 🔐 Encoding Messages
+## ðŸ” Encoding Messages
 
 ### Command-Line Usage
 
@@ -363,7 +363,7 @@ stego_pil.save('stego.png')
 
 ---
 
-## 🔓 Decoding Messages
+## ðŸ”“ Decoding Messages
 
 ### Command-Line Usage
 
@@ -420,7 +420,7 @@ print(f"Decoded message: {decoded_message}")
 
 ---
 
-## 🧪 Testing Robustness
+## ðŸ§ª Testing Robustness
 
 ### Interactive Notebook
 
@@ -431,10 +431,10 @@ jupyter notebook Robustness_Test.ipynb
 ```
 
 This notebook provides:
-- ✅ Interactive testing interface
-- ✅ Automatic metric computation (BER, PSNR, SSIM)
-- ✅ Visual comparisons of attacked images
-- ✅ Performance statistics and charts
+- âœ… Interactive testing interface
+- âœ… Automatic metric computation (BER, PSNR, SSIM)
+- âœ… Visual comparisons of attacked images
+- âœ… Performance statistics and charts
 
 ### Command-Line Testing
 
@@ -478,7 +478,7 @@ print(f'BER with JPEG Q=50: {ber:.4f} ({(1-ber)*100:.1f}% accuracy)')
 
 ---
 
-## 📈 Example Results
+## ðŸ“ˆ Example Results
 
 ### Visual Quality
 
@@ -492,16 +492,16 @@ print(f'BER with JPEG Q=50: {ber:.4f} ({(1-ber)*100:.1f}% accuracy)')
 
 | Attack Type | Bit Accuracy | PSNR | SSIM |
 |-------------|--------------|------|------|
-| No Attack | 99.8% | ∞ | 1.000 |
+| No Attack | 99.8% | âˆž | 1.000 |
 | JPEG Q=90 | 98.5% | 35.2 dB | 0.956 |
 | JPEG Q=75 | 96.3% | 31.8 dB | 0.923 |
 | JPEG Q=50 | 92.1% | 28.4 dB | 0.875 |
-| Gaussian Noise (σ=0.01) | 97.8% | 38.1 dB | 0.945 |
-| Gaussian Noise (σ=0.05) | 89.4% | 26.2 dB | 0.812 |
+| Gaussian Noise (Ïƒ=0.01) | 97.8% | 38.1 dB | 0.945 |
+| Gaussian Noise (Ïƒ=0.05) | 89.4% | 26.2 dB | 0.812 |
 | Resize 0.75x | 96.7% | 33.5 dB | 0.934 |
 | Resize 0.5x | 91.2% | 29.1 dB | 0.867 |
-| Gaussian Blur (σ=1.0) | 95.8% | 32.7 dB | 0.918 |
-| Gaussian Blur (σ=2.0) | 88.3% | 27.9 dB | 0.845 |
+| Gaussian Blur (Ïƒ=1.0) | 95.8% | 32.7 dB | 0.918 |
+| Gaussian Blur (Ïƒ=2.0) | 88.3% | 27.9 dB | 0.845 |
 | Random Crop 90% | 94.5% | 31.2 dB | 0.901 |
 | Color Jitter | 96.2% | 34.8 dB | 0.927 |
 
@@ -521,7 +521,7 @@ Epoch   Train Loss   Val Loss   BER      PSNR     SSIM    Time
 
 ---
 
-## 🛠️ Advanced Features
+## ðŸ› ï¸ Advanced Features
 
 ### Custom Loss Functions
 
@@ -582,7 +582,7 @@ for images, messages in dataloader:
 
 ---
 
-## 📊 Evaluation
+## ðŸ“Š Evaluation
 
 ### Compute All Metrics
 
@@ -628,7 +628,7 @@ Lower detection accuracy (< 55%) indicates better steganography security.
 
 ---
 
-## 🔬 Research & Citations
+## ðŸ”¬ Research & Citations
 
 This project implements concepts from:
 
@@ -644,7 +644,7 @@ This project implements concepts from:
 If you use this code in your research, please cite appropriately.
 
 ```bibtex
-@misc{image-steganography-model,
+@Flakes8387{image-steganography-model,
   title={Image Steganography Model},
   year={2026},
   publisher={GitHub},
@@ -654,7 +654,7 @@ If you use this code in your research, please cite appropriately.
 
 ---
 
-## 🤝 Contributing
+## ðŸ¤ Contributing
 
 Contributions are welcome! Areas for improvement:
 
@@ -669,13 +669,13 @@ Please submit issues or pull requests.
 
 ---
 
-## 📝 License
+## ðŸ“ License
 
 This project is available for educational and research purposes.
 
 ---
 
-## 🙏 Acknowledgments
+## ðŸ™ Acknowledgments
 
 - PyTorch team for the deep learning framework
 - COCO dataset contributors
@@ -683,13 +683,13 @@ This project is available for educational and research purposes.
 
 ---
 
-## 📧 Contact
+## ðŸ“§ Contact
 
 For questions, issues, or collaboration, please create an issue in this repository.
 
 ---
 
-## 🎯 Quick Start Summary
+## ðŸŽ¯ Quick Start Summary
 
 ```bash
 # 1. Install
@@ -711,5 +711,6 @@ python decode.py --image stego.png
 jupyter notebook Robustness_Test.ipynb
 ```
 
-**Happy Steganography!** 🎭🔐
+**Happy Steganography!** ðŸŽ­ðŸ”
+
 
